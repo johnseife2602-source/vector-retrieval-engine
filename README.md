@@ -9,7 +9,7 @@
 A high-performance, lightweight, and mathematically rigorous **Vector Search & Retrieval Engine** built entirely from first principles using Python's standard library (`struct`, `mmap`, `heapq`, `json`). Zero external dependencies (no NumPy, SciPy, or FAISS).
 
 This project implements two complementary retrieval architectures:
-1. **`VectorStore` (In-Memory Flat Index):** Blazing-fast in-memory linear scan utilizing priority-queue min-heaps for $O(N \log K)$ Top-$K$ retrieval.
+1. **`VectorStore` (In-Memory Flat Index):** Blazing-fast in-memory linear scan utilizing priority-queue min-heaps for $O(N \log K)$ Top-K retrieval.
 2. **`MMapVectorStore` (Out-of-Core SSD Search):** An out-of-core storage engine powered by operating system virtual memory mapping (`mmap`). It queries multi-million-parameter vector indexes directly from persistent disk with **zero vector float arrays loaded into RAM**.
 
 ---
@@ -92,7 +92,7 @@ Using Python's `mmap.mmap()`, the file is mapped directly into the operating sys
 
 ---
 
-## ⚡ Top-$K$ Retrieval via Min-Heap Optimization
+## ⚡ Top-K Retrieval via Min-Heap Optimization
 
 A naive approach to finding the top-$K$ best matches is to score all $N$ vectors, store them in a list, and sort the list:
 - **Naive Full Sort:** Requires $O(N \log N)$ time and $O(N)$ extra memory allocation.
@@ -159,7 +159,7 @@ tests/test_vector_engine.py::test_save_load_roundtrip PASSED             [100%]
 ============================= 14 passed in 0.16s ==============================
 ```
 
-- **Mathematical Invariant Tests:** Normalization unit length ($\| \text{norm}(v) \| = 1.0$), self-similarity ($\text{cos}(v, v) = 1.0$), Euclidean symmetry ($\text{dist}(a, b) = \text{dist}(b, a)$).
+- **Mathematical Invariant Tests:** Normalization unit length ($\| \text{norm}(v) \| = 1.0$), self-similarity ($\text{cos}(v, v) = 1.0$), Euclidean symmetry (dist(a, b) = dist(b, a)).
 - **Edge-Case Matrix:** Orthogonal axes, identical vectors, opposite vectors, zero-vector guard division-by-zero protection.
 - **Persistence Roundtrip:** Temporary directory (`tmp_path`) serialization and deserialization validation.
 
