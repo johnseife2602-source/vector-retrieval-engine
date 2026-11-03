@@ -1,0 +1,7 @@
+# ==============================================================================
+# Vector Retrieval Engine Dependencies
+# ==============================================================================
+# Core engine has ZERO external dependencies (pure Python standard library).
+#
+# Optional test dependency:
+pytest>=8.0.0

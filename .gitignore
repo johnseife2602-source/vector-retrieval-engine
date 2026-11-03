@@ -1,0 +1,16 @@
+# Environments
+venv/
+.env
+
+# Bytecode & Caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDE & Editor
+.vscode/
+.idea/
+
+# Logs & Temporary Data
+*.log
+data/benchmark_*
