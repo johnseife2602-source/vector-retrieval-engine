@@ -94,7 +94,7 @@ Using Python's `mmap.mmap()`, the file is mapped directly into the operating sys
 
 ## ⚡ Top-K Retrieval via Min-Heap Optimization
 
-A naive approach to finding the top-$K$ best matches is to score all $N$ vectors, store them in a list, and sort the list:
+A naive approach to finding the top-K best matches is to score all $N$ vectors, store them in a list, and sort the list:
 - **Naive Full Sort:** Requires $O(N \log N)$ time and $O(N)$ extra memory allocation.
 
 This engine uses a **Bounded Min-Heap Priority Queue** (`heapq`) of fixed size $K$:
@@ -130,7 +130,7 @@ Binary Serialization: 0.094 seconds (4.88 MB written to disk)
 
 ### Key Engineering Takeaways:
 1. **0.00% Binary Overhead:** Theoretical minimum size: $12 + (10,000 \times 128 \times 4) = 5,120,012\text{ bytes}$ (4.88 MB). Actual disk size: **exactly 5,120,012 bytes**.
-2. **100% Ranking Equivalence:** Across all test queries, the out-of-core MMap search produced **identical Top-$K$ rankings and similarity scores** to the in-memory engine.
+2. **100% Ranking Equivalence:** Across all test queries, the out-of-core MMap search produced **identical Top-K rankings and similarity scores** to the in-memory engine.
 3. **Memory Tradeoff:** `VectorStore` keeps all float vectors resident in RAM for faster query latency (~925 ms), while `MMapVectorStore` trades slight latency overhead (~2420 ms due to on-the-fly `struct.unpack`) to allow searching datasets that exceed physical RAM limits.
 
 ---
